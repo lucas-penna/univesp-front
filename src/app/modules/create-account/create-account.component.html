@@ -1,0 +1,73 @@
+<div class="card">
+    <form [formGroup]="form" (keyup.enter)="createAccount()">
+        <div class="flex justify-content-center">
+            <div class="box-shadow border-1 surface-border surface-card border-round py-7 px-4 md:px-7 z-1 m-8">
+                <div class="w-15rem">
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" pInputText class="w-full" formControlName="name">
+                        <div *ngIf="name?.dirty || name?.touched">
+                            <small *ngIf="name?.errors?.['required']" id="name-help" class="p-error">Campo nome
+                                obrigatório.</small>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="email">E-mail</label>
+                        <input id="email" type="email" aria-describedby="email-help" pInputText class="w-full"
+                            formControlName="email">
+                        <small *ngIf="emailUnavailable" id="email-help" class="p-error">E-mail não disponível.</small>
+                        <small *ngIf="emailInvalid" id="email-help" class="p-error">E-mail inválido.</small>
+                        <div *ngIf="email?.dirty || email?.touched">
+                            <small *ngIf="email?.errors?.['required']" id="email-help" class="p-error">Campo e-mail
+                                obrigatório.</small>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <p-password id="password" [toggleMask]="true" [feedback]="true" class="w-full"
+                            styleClass="p-password p-component p-inputwrapper p-input-icon-right" weakLabel="Fraca"
+                            mediumLabel="Média" strongLabel="Forte" promptLabel="Insira uma senha"
+                            formControlName="password">
+                            <ng-template pTemplate="header">
+                                <h6>Escolha uma senha</h6>
+                            </ng-template>
+                            <ng-template pTemplate="footer">
+                                <p-divider></p-divider>
+                                <p class="mt-2">Sugestões</p>
+                                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                                    <li>Pelo menos uma minúscula</li>
+                                    <li>Pelo menos uma maiúscula</li>
+                                    <li>Pelo menos um numérico</li>
+                                    <li>Mínimo de 8 caracteres</li>
+                                </ul>
+                            </ng-template>
+                        </p-password>
+                        <div *ngIf="password?.dirty || password?.touched">
+                            <small *ngIf="password?.errors?.['required']" id="password-help" class="p-error">Campo
+                                password
+                                obrigatório.</small>
+                        </div>
+                        <div *ngIf="password?.dirty || password?.touched">
+                            <small *ngIf="password?.errors?.['minlength']" id="password-help" class="p-error">Sua senha
+                                deve ter pelo menos 8 caracteres. Por favor, tente outro.</small>
+                        </div>
+                    </div>
+                    <div class="field text-center">
+                        <button pButton pRipple type="button" label="Cadastre-se" class="w-full"
+                            (click)="createAccount()"></button>
+                    </div>
+                    <div class="field text-center">
+                        <p-message *ngIf="createSuccess" severity="success" text="Usuário cadastrado!"
+                            styleClass="mr-2">
+                        </p-message>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="field text-center">
+                        <button pButton pRipple type="button" label="Login" class="p-button-success w-full"
+                            (click)="goToLogin()"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,53 @@
+<form [formGroup]="form">
+    <div class="p-fluid formgrid grid">
+        <div class="field col-12 md:col-6">
+            <label for="descricao">Descrição</label>
+            <input pInputText id="descricao" type="text" formControlName="descricao"
+                class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            <div *ngIf="descricao?.dirty || descricao?.touched">
+                <small *ngIf="descricao?.errors?.['required']" id="name-help" class="p-error">Campo descrição
+                    obrigatório.</small>
+            </div>
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="quantidade">Quantidade</label>
+            <p-inputNumber inputId="quantidade" [min]="0" locale="pt-BR" formControlName="quantidade">
+            </p-inputNumber>
+            <div *ngIf="quantidade?.dirty || quantidade?.touched">
+                <small *ngIf="quantidade?.errors?.['required']" id="name-help" class="p-error">Campo quantidade
+                    obrigatório.</small>
+            </div>
+        </div>
+    </div>
+    <div class="p-fluid formgrid grid">
+        <div class="field col-12 md:col-6">
+            <label for="margem">Margem(%)</label>
+            <p-inputNumber inputId="margem" suffix="%" [min]="0" locale="pt-BR" formControlName="margem">
+            </p-inputNumber>
+            <div *ngIf="margem?.dirty || margem?.touched">
+                <small *ngIf="margem?.errors?.['required']" id="name-help" class="p-error">Campo margem
+                    obrigatório.</small>
+            </div>
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="valor">Valor</label>
+            <p-inputNumber id="valor" inputId="valor" mode="currency" currency="BRL" locale="pt-BR"
+                formControlName="valor">
+            </p-inputNumber>
+            <div *ngIf="valor?.dirty || valor?.touched">
+                <small *ngIf="valor?.errors?.['required']" id="name-help" class="p-error">Campo valor
+                    obrigatório.</small>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="grid mt-2">
+    <div class="flex justify-content-end col">
+        <button pButton pRipple type="button" label="Limpar" class="p-button-danger p-button-raised mr-2"
+            (click)="limpar()"></button>
+        <button *ngIf="!produto" pButton pRipple type="button" label="Cadastrar"
+            class="p-button-info p-button-raised" (click)="cadastrar()"></button>
+        <button *ngIf="produto" pButton pRipple type="button" label="Salvar" class="p-button-info p-button-raised"
+            (click)="editar()"></button>
+    </div>
+</div>

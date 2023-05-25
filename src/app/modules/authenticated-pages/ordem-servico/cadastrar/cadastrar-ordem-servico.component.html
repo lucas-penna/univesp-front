@@ -1,0 +1,169 @@
+<p-confirmDialog></p-confirmDialog>
+<p-card styleClass="pcard">
+    <form [formGroup]="form">
+        <div class="p-fluid formgrid grid">
+            <div class="field col-12 md:col-3">
+                <label for="id">Nº OS</label>
+                <input pInputText id="id" type="text" formControlName="id"
+                    class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
+            <div class="field col-12 md:col-3">
+                <label for="dataInicio">Data Início</label>
+                <p-inputMask id="dataInicio" mask="99/99/9999 99:99" formControlName="dataInicio"
+                    class="text-base text-color p-2 surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </p-inputMask>
+            </div>
+            <div class="field col-12 md:col-3">
+                <label for="dataFim">Data Fim</label>
+                <p-inputMask id="dataFim" mask="99/99/9999 99:99" formControlName="dataFim"
+                    class="text-base text-color p-2 surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </p-inputMask>
+            </div>
+            <div class="field col-12 md:col-3">
+                <label for="dataFim">Status OS</label>
+                <p-dropdown formControlName="statusOrdemServico" id="statusOrdemServico" [options]="status"
+                    class="text-base text-color p-2 surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-fluid formgrid grid">
+            <div class="field col-12 md:col-12">
+                <label for="descricao">Descrição</label>
+                <textarea formControlName="descricao"
+                    class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    [rows]="3" [cols]="30" pInputTextarea [autoResize]="true"></textarea>
+                <div *ngIf="descricao?.dirty || descricao?.touched">
+                    <small *ngIf="descricao?.errors?.['required']" id="descricao-help" class="p-error">Campo descrição
+                        obrigatório.</small>
+                </div>
+            </div>
+        </div>
+        <div class="p-fluid formgrid grid">
+            <div class="field col-12 md:col-6">
+                <label for="nomeCliente">Nome Cliente</label>
+                <input pInputText id="nomeCliente" type="text" formControlName="nomeCliente"
+                    class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <div *ngIf="nomeCliente?.dirty || nomeCliente?.touched">
+                    <small *ngIf="nomeCliente?.errors?.['required']" id="nomeCliente-help" class="p-error">Campo nome
+                        cliente obrigatório.</small>
+                </div>
+            </div>
+            <div class="field col-12 md:col-6">
+                <label for="telefoneCliente">Telefone</label>
+                <p-inputNumber [format]="false" [maxlength]="11" id="telefoneCliente" formControlName="telefoneCliente"
+                    class="text-base text-color surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </p-inputNumber>
+                <div *ngIf="telefoneCliente?.dirty || telefoneCliente?.touched">
+                    <small *ngIf="telefoneCliente?.errors?.['required']" id="telefoneCliente-help" class="p-error">Campo
+                        telefone
+                        obrigatório.</small>
+                </div>
+            </div>
+        </div>
+        <div class="p-fluid formgrid grid">
+            <div class="field col-12 md:col-4">
+                <label for="marca">Marca</label>
+                <input pInputText id="marca" type="text" formControlName="marca"
+                    class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <div *ngIf="marca?.dirty || marca?.touched">
+                    <small *ngIf="marca?.errors?.['required']" id="marca-help" class="p-error">Campo marca
+                        obrigatório.</small>
+                </div>
+            </div>
+            <div class="field col-12 md:col-4">
+                <label for="modelo">Modelo</label>
+                <input pInputText id="modelo" type="text" formControlName="modelo"
+                    class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <div *ngIf="modelo?.dirty || modelo?.touched">
+                    <small *ngIf="modelo?.errors?.['required']" id="modelo-help" class="p-error">Campo modelo
+                        obrigatório.</small>
+                </div>
+            </div>
+            <div class="field col-12 md:col-4">
+                <label for="placa">Placa</label>
+                <p-inputMask id="placa" [style]="{'text-transform': 'uppercase'}" mask="***-****"
+                    formControlName="placa"
+                    class="text-base text-color surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </p-inputMask>
+                <div *ngIf="placa?.dirty || placa?.touched">
+                    <small *ngIf="placa?.errors?.['required']" id="placa-help" class="p-error">Campo placa
+                        obrigatório.</small>
+                </div>
+            </div>
+        </div>
+        <p-card>
+            <p class="text-center text-2xl m-auto font-bold">Produtos OS</p>
+            <p-table [value]="produtosOrdemServico" [rowHover]="true" [lazy]="true" [resizableColumns]="true"
+                styleClass="p-datatable-striped pcard" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="text-center">Código</th>
+                        <th class="text-center">Descrição</th>
+                        <th class="text-center">Quantidade</th>
+                        <th class="text-center">Valor</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">
+                            <p-dropdown appendTo="body" [ngModelOptions]="{standalone: true}" [options]="produtos"
+                                [(ngModel)]="produto" optionLabel="id" [filter]="true" filterBy="id" [showClear]="true"
+                                placeholder="Código produto">
+                            </p-dropdown>
+                        </th>
+                        <th class="text-center">
+                            <p-dropdown appendTo="body" [ngModelOptions]="{standalone: true}" [options]="produtos"
+                                [(ngModel)]="produto" optionLabel="descricao" [filter]="true" filterBy="descricao"
+                                [showClear]="true" placeholder="Descrição produto">
+                            </p-dropdown>
+                        </th>
+                        <th class="text-center">
+                            <p-inputNumber [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="this.produtoOrdemServico!.quantidade" mode="decimal" [showButtons]="true"
+                                inputId="minmax-buttons" [min]="1" [max]="100">
+                            </p-inputNumber>
+                        </th>
+                        <th class="text-center">
+                            {{(this.produto?.valor! * (1 + (this.produto?.margem! /
+                            100))) * this.produtoOrdemServico?.quantidade! | currency:'BRL'}}
+                        </th>
+                        <th class="text-center">
+                            <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-text"
+                                (click)="addProdutoList()"></button>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-produtoOS>
+                    <tr>
+                        <td class="text-center">{{produtoOS.id}}</td>
+                        <td class="text-center">{{produtoOS.descricao}}</td>
+                        <td class="text-center">{{produtoOS.quantidade}}</td>
+                        <td class="text-center">{{produtoOS.valor | currency:'BRL'}}</td>
+                        <td class="text-center">
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-text p-button-danger"
+                                (click)="removeProdutoList(produtoOS)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <!-- <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-end">
+                    {{totalRecords}} registro(s)
+                </div>
+            </ng-template> -->
+            </p-table>
+        </p-card>
+    </form>
+    <div class="grid mt-2">
+        <div class="flex justify-content-start col">
+            <button pButton pRipple type="button" label="Voltar" class="p-button-secondary p-button-raised mr-2"
+                (click)="voltar()"></button>
+        </div>
+        <div class="flex justify-content-end col">
+            <button pButton pRipple type="button" label="Limpar" class="p-button-danger p-button-raised mr-2"
+                (click)="limpar()"></button>
+            <button *ngIf="!ordemServico" pButton pRipple type="button" label="Cadastrar"
+                class="p-button-info p-button-raised" (click)="cadastrar()"></button>
+            <button *ngIf="ordemServico" pButton pRipple type="button" label="Salvar"
+                class="p-button-info p-button-raised" (click)="editar()"></button>
+        </div>
+    </div>
+</p-card>

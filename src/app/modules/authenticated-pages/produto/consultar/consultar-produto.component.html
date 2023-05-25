@@ -1,0 +1,55 @@
+<p-confirmDialog></p-confirmDialog>
+<p-card styleClass="pcard">
+    <p class="text-center text-3xl m-auto font-bold">Consultar Produtos</p>
+    <p-table [rowHover]="true" (onLazyLoad)="pesquisar($event)" [lazy]="true" [resizableColumns]="true"
+        [value]="produtos" [paginator]="true" [rows]="rows" [first]="first" [totalRecords]="totalRecords"
+        [showCurrentPageReport]="false" currentPageReportTemplate="{totalRecords} registros"
+        [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-striped pcard" responsiveLayout="scroll">
+        <ng-template pTemplate="caption">
+            <div class="grid">
+                <div class="flex justify-content-start col">
+                    <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-text"
+                        (click)="showDialog()"></button>
+                </div>
+                <div class="flex justify-content-end col-1">
+                    <form [formGroup]="form" (keyup.enter)="pesquisar()">
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search cursor-pointer" (click)="pesquisar()"></i>
+                            <input formControlName="descricao" pInputText type="text" placeholder="Pesquisar..." />
+                        </span>
+                    </form>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="text-center">Código</th>
+                <th>Descrição</th>
+                <th class="text-center">Margem</th>
+                <th>Valor</th>
+                <th class="text-center">Quantidade</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-produto>
+            <tr>
+                <td class="text-center">{{produto.id}}</td>
+                <td>{{produto.descricao}}</td>
+                <td class="text-center">{{produto.margem}}%</td>
+                <td>{{produto.valor | currency:'BRL'}}</td>
+                <td class="text-center">{{produto.quantidade}}</td>
+                <td class="text-center">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-text p-button-info mr-1"
+                        (click)="editarProduto(produto)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-text p-button-danger"
+                        (click)="deletarProduto(produto)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-end">
+                {{totalRecords}} registro(s)
+            </div>
+        </ng-template>
+    </p-table>
+</p-card>

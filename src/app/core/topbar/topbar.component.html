@@ -1,0 +1,30 @@
+<app-sidebar></app-sidebar>
+<!-- <p-toolbar styleClass="p-0 border-noround topbar">
+    <div class="p-toolbar-group-left">
+        <button pButton pRipple type="button" class="mr-2 p-button-rounded p-button-secondary p-button-text"
+            icon="pi pi-bars" (click)="openSidebar()"></button>
+    </div>
+    <div class="p-toolbar-group-right">
+        <button pButton pRipple type="button" icon="pi pi-sun" class="p-button-rounded p-button-text p-button-plain"
+            (click)="changeTheme('bootstrap4-light-blue')" *ngIf="isDarkMode"></button>
+        <button pButton pRipple type="button" icon="pi pi-moon" class="p-button-rounded p-button-text p-button-plain"
+            (click)="changeTheme('vela-blue')" *ngIf="!isDarkMode"></button>
+        <button pButton pRipple type="button" class="mr-2 p-button-rounded p-button-secondary p-button-text"
+            icon="pi pi-sign-out" (click)="logout()"></button>
+    </div>
+</p-toolbar> -->
+
+<div class="layout-topbar">
+    <div class="p-toolbar-group-left">
+        <button pButton pRipple type="button" class="mr-2 p-button-rounded p-button-plain p-button-text"
+        icon="pi pi-bars" (click)="openSidebar()"></button>
+    </div>
+    <div class="topbar-end">
+        <button pButton pRipple type="button" icon="pi pi-sun" class="p-button-rounded p-button-text p-button-plain"
+        (click)="changeTheme('bootstrap4-light-blue')" *ngIf="isDarkMode"></button>
+    <button pButton pRipple type="button" icon="pi pi-moon" class="p-button-rounded p-button-text p-button-plain"
+        (click)="changeTheme('vela-blue')" *ngIf="!isDarkMode"></button>
+    <button pButton pRipple type="button" class="mr-2 p-button-rounded p-button-plain p-button-text"
+        icon="pi pi-sign-out" (click)="logout()"></button>
+    </div>
+</div>

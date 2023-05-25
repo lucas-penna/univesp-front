@@ -1,0 +1,58 @@
+<form [formGroup]="form">
+    <div class="p-fluid formgrid grid">
+        <div class="field col-12 md:col-6">
+            <label for="nome">Nome</label>
+            <input pInputText id="nome" type="text" formControlName="nome"
+                class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            <div *ngIf="nome?.dirty || nome?.touched">
+                <small *ngIf="nome?.errors?.['required']" id="name-help" class="p-error">Campo nome
+                    obrigatório.</small>
+            </div>
+        </div>
+        <div class="field col-12 md:col-2">
+            <label for="tipoPessoa">Tipo Pessoa</label>
+            <p-dropdown (onChange)="changeMask()" [options]="tiposPessoa" formControlName="tipoPessoa"></p-dropdown>
+            <div *ngIf="tipoPessoa?.dirty || tipoPessoa?.touched">
+                <small *ngIf="tipoPessoa?.errors?.['required']" id="tipoPessoa-help" class="p-error">Campo Tipo Pessoa
+                    obrigatório.</small>
+            </div>
+        </div>
+        <div class="field col-12 md:col-4">
+            <label for="cpfcnpj">CPF/CNPJ</label>
+            <p-inputMask [mask]="mask" type="tel" [size]="15" [unmask]="true" id="cpfcnpj" formControlName="cpfcnpj"
+                class="text-base text-color surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </p-inputMask>
+            <div *ngIf="cpfcnpj?.dirty || cpfcnpj?.touched">
+                <small *ngIf="cpfcnpj?.errors?.['required']" id="cpfcnpj-help" class="p-error">Campo CPF/CNPJ
+                    obrigatório.</small>
+            </div>
+        </div>
+    </div>
+    <div class="p-fluid formgrid grid">
+        <div class="field col-12 md:col-6">
+            <label for="telefone">Telefone</label>
+            <p-inputNumber [format]="false" [maxlength]="11" id="telefone" formControlName="telefone"
+                class="text-base text-color surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </p-inputNumber>
+            <div *ngIf="telefone?.dirty || telefone?.touched">
+                <small *ngIf="telefone?.errors?.['required']" id="telefone-help" class="p-error">Campo telefone
+                    obrigatório.</small>
+            </div>
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="email">Email</label>
+            <input pInputText id="email" type="text" formControlName="email"
+                class="text-base text-color p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        </div>
+    </div>
+</form>
+<div class="grid mt-2">
+    <div class="flex justify-content-end col">
+        <button pButton pRipple type="button" label="Limpar" class="p-button-danger p-button-raised mr-2"
+            (click)="limpar()"></button>
+        <button *ngIf="!cliente" pButton pRipple type="button" label="Cadastrar" class="p-button-info p-button-raised"
+            (click)="cadastrar()"></button>
+        <button *ngIf="cliente" pButton pRipple type="button" label="Salvar" class="p-button-info p-button-raised"
+            (click)="editar()"></button>
+    </div>
+</div>
